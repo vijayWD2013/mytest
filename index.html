@@ -8,7 +8,13 @@
 				checkStorage();
 			}
 			function checkStorage() {
-				alert('here');
+				var language = window.localStorage.getItem("language");
+				alert('here'+language);
+				if(language.length == 0){
+					window.localStorage.setItem("language", "IN");
+				}
+				language = window.localStorage.getItem("language");
+				alert(language);				
 			}
 		</script>
 	</head>
