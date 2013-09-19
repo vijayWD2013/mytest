@@ -10,7 +10,7 @@
 			function checkStorage() {
 				var language = window.localStorage.getItem("language");
 				alert('here'+language);
-				if(language == 'null'){
+				if(language == null){
 					alert('if');
 					window.localStorage.setItem("language", "IN");
 				}
