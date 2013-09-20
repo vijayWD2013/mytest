@@ -23,6 +23,7 @@
 			}
 			function onSuccess(position) {
 				var element = document.getElementById('geolocation');
+				alert("here"+position);
 				element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
 									'Longitude: '          + position.coords.longitude             + '<br />' +
 									'Altitude: '           + position.coords.altitude              + '<br />' +
