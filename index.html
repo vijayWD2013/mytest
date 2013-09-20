@@ -4,13 +4,15 @@
 		<title>CVK TEST</title>    
 		<script type="text/javascript" charset="utf-8">
 			document.addEventListener("deviceready", onDeviceReady, false);
-			
+			var watchID = null;
+
 			function onDeviceReady() {
 				//checkStorage();
 				//navigator.geolocation.getCurrentPosition(onSuccess, onError);
-				navigator.geolocation.getCurrentPosition(onSuccess);
-
+				var options = { timeout: 30000 };
+				watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 			}
+			
 			function checkStorage() {
 				var language = window.localStorage.getItem("language");
 				alert('here'+language);
@@ -21,17 +23,14 @@
 				language = window.localStorage.getItem("language");
 				alert(language);				
 			}
+			
 			function onSuccess(position) {
 				var element = document.getElementById('geolocation');
-				alert("here"+position);
-				element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-									'Longitude: '          + position.coords.longitude             + '<br />' +
-									'Altitude: '           + position.coords.altitude              + '<br />' +
-									'Accuracy: '           + position.coords.accuracy              + '<br />' +
-									'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-									'Heading: '            + position.coords.heading               + '<br />' +
-									'Speed: '              + position.coords.speed                 + '<br />' +
-									'Timestamp: '          + position.timestamp                    + '<br />';
+				alert('success');
+				element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
+                            'Longitude: ' + position.coords.longitude     + '<br />' +
+                            '<hr />'      + element.innerHTML;
+
 			}
 
 			// onError Callback receives a PositionError object
@@ -44,7 +43,7 @@
 	</head>
 	<body>
 		<h1>CVK TEST</h1>
-		<p id="geolocation">Finding geolocation...</p>
+		<p id="geolocation">Watching geolocation...</p>
 	</body>
 	<script type="text/javascript" src="phonegap.js"></script>
 </html>
