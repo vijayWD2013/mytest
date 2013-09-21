@@ -11,8 +11,10 @@
 			document.addEventListener("deviceready", onDeviceReady, false);
 			var watchID = null;
 			function onDeviceReady() {
+				alert('here');
 				var ss_image = '<img src="res/screen/android/screen-ldpi-portrait.png" />';
-				$('#page_splash').html(ss_image);
+				alert(ss_image);
+				//$('#page_splash').html(ss_image);
 				$.ajax({
 						type       : "POST",
 						url        : "http://system-hostings.dev.wiredelta.com/colomer/api/offers",
