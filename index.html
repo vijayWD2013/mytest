@@ -2,14 +2,17 @@
 <html>
 	<head>
 		<title>CVK TEST</title>
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>          
-        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+		<link rel="stylesheet" href="lib/jquery-mobile/jquery.mobile-1.3.2.min.css" />
+		<!-- bxSlider CSS file -->
+		<link href="css/jquery.bxslider.css" rel="stylesheet" />
+        <script src="lib/jquery/jquery-1.9.1.min.js"></script>          
+        <script src="lib/jquery-mobile/jquery.mobile-1.3.2.min.js"></script>
         <script type="text/javascript" charset="utf-8">
 			document.addEventListener("deviceready", onDeviceReady, false);
 			var watchID = null;
-
 			function onDeviceReady() {
+				var ss_image = '<img src="res/screen/android/screen-ldpi-portrait.png" />';
+				$('#page_splash').html(ss_image);
 				$.ajax({
 						type       : "POST",
 						url        : "http://system-hostings.dev.wiredelta.com/colomer/api/offers",
@@ -20,17 +23,29 @@
 						dataType   : 'json',
 						success    : function(response) {
 							//console.error(JSON.stringify(response));
-							alert('Works!'+response);
+							//alert('Works!'+response.data.length);
+							var offers = '';
+							for(var i=0; i < response.data.length; i++){
+								offers += '<li><img src="'+response.data[i]+'" /></li>';
+							}
+							$('.bxslider').html(offers);
+							$('.bxslider').bxSlider();
+							setTimeout('show_index()', 20000);							
 						},
 						error      : function() {
 							//console.error("error");
-							alert('Not working!');                  
+							alert('Not working!');
 						}
 					});
 				//checkStorage();
 				//navigator.geolocation.getCurrentPosition(onSuccess, onError);
 				//var options = { timeout: 30000 };
 				//watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+			}
+			
+			function show_index(){
+				$('#page_splash').hide();
+				$('#page_index').show();
 			}
 			
 			function checkStorage() {
@@ -62,8 +77,17 @@
 		</script>
 	</head>
 	<body>
-		<h1>CVK TEST</h1>
-		<p id="geolocation">Watching geolocation...</p>
+		<div id="page_splash"></div>
+		<div id="page_index" style="display:none;">
+			<h1>CVK TEST</h1>
+			<p id="geolocation">Watching geolocation...</p>
+			<div data-role="content">
+				<ul id="bxslider" class="bxslider">
+				</ul>
+			</div>
+		</div>
 	</body>
-	<script type="text/javascript" src="phonegap.js"></script>
+	<!-- bxSlider Javascript file -->
+	<script src="js/jquery.bxslider.min.js"></script>
+	<!--<script type="text/javascript" src="phonegap.js"></script>-->
 </html>
